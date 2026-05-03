@@ -69,6 +69,8 @@ web_modules/
 .env
 .env.*
 !.env.example
+!*.env.example
+!.env.*.example
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -141,3 +143,41 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+*.pem
+
+# Test suite
+tests/node_modules/
+tests/results/
+!tests/results/.gitkeep
+
+# ──────────────────────────────────────────────────────────────────
+# NimbusDesk — explicit additions on top of the boilerplate above
+# ──────────────────────────────────────────────────────────────────
+
+# Per-environment files (already covered by .env.* but explicit for clarity)
+.env.infrastructure
+backend/.env
+frontend/.env
+lambda/.env
+tests/.env
+
+# AWS credentials & misc keys
+*.key
+.aws/
+aws-exports.js
+
+# Build outputs
+frontend/dist/
+frontend/build/
+backend/dist/
+lambda/*.zip
+nimbusdesk-deploy.tar.gz
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# OS
+Thumbs.db
