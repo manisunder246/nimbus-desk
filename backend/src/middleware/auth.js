@@ -1,3 +1,7 @@
+// middleware/auth.js — Cognito ID-token verification.
+// Pulls the user pool's public JWKS once (cached + rate-limited), verifies
+// the RS256 signature, and asserts iss / aud / token_use=id. On success it
+// attaches { sub, email, groups } to req.user so downstream RBAC can run.
 import jwt from 'jsonwebtoken';
 import jwksClient from 'jwks-rsa';
 import env from '../config/env.js';
@@ -7,6 +11,8 @@ const JWKS_URI = `${ISSUER}/.well-known/jwks.json`;
 
 const jwks = jwksClient({ jwksUri: JWKS_URI, cache: true, rateLimit: true });
 
+// jwt.verify() calls this for every token to resolve the right public key
+// from the JWKS using the token header's `kid` claim.
 function getKey(header, callback) {
   jwks.getSigningKey(header.kid, (err, key) => {
     if (err) return callback(err);

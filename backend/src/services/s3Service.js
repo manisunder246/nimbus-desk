@@ -1,3 +1,6 @@
+// services/s3Service.js — generates SigV4-presigned PUT and GET URLs so the
+// browser can upload directly to S3 (PUT) and the user can download their
+// own attachment (GET) without the backend ever proxying file bytes.
 import { PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { v4 as uuidv4 } from 'uuid';

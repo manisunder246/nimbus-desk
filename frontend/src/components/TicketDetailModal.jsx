@@ -1,3 +1,11 @@
+// components/TicketDetailModal.jsx — slide-over drawer.
+// Controls displayed adapt to role:
+//   Admin   -> Assign + Status (full PATCH)
+//   Analyst -> Status only (PATCH gated server-side too)
+//   User    -> read-only
+// assignedTo is stored as the Cognito sub; the modal resolves it to a
+// display name via the cached useUsers list so the activity log shows
+// "Priya Sharma" rather than a UUID.
 import { useEffect, useMemo, useState } from 'react';
 import PriorityBadge from './PriorityBadge';
 import StatusPill from './StatusPill';

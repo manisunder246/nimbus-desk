@@ -1,3 +1,8 @@
+// context/AuthContext.jsx — wraps Amplify v6 sign-in and exposes a single
+// React context with the current user, role (priority Admin > Analyst >
+// User), and the actions the LoginPage / Sidebar need. The ID token is
+// decoded locally just to surface the role; signature verification still
+// happens server-side in middleware/auth.js.
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import {
   signIn as amplifySignIn,

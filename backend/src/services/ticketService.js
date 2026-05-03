@@ -1,3 +1,7 @@
+// services/ticketService.js — every DynamoDB read/write for nimbusdesk-tickets.
+// Reads use the GSIs (createdBy-createdAt-index for "my tickets",
+// status-createdAt-index for admin status filters); writes use UpdateCommand
+// with list_append on activityLog so we never lose history on a partial write.
 import {
   PutCommand,
   GetCommand,

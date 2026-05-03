@@ -1,3 +1,6 @@
+// routes/auth.js — POST /api/auth/me. Echoes the verified token claims so
+// the SPA can confirm the active identity + derived role on app boot
+// (priority Admin > Analyst > User when a user belongs to multiple groups).
 import { Router } from 'express';
 import { authMiddleware } from '../middleware/auth.js';
 

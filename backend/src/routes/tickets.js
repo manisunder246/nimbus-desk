@@ -1,3 +1,10 @@
+// routes/tickets.js — every /api/tickets endpoint plus the role-based
+// authorization model. Authorization rules (encoded in canModifyTicket):
+//   Admin    -> can change any field on any ticket
+//   Analyst  -> can change ONLY `status`, ONLY on tickets where
+//               assignedTo === their Cognito sub
+//   User     -> 403 on any modification (read of own tickets is allowed)
+// SNS publish is best-effort — a failure there must NOT fail the API call.
 import { Router } from 'express';
 import { authMiddleware } from '../middleware/auth.js';
 import {
@@ -43,6 +50,9 @@ router.post('/', async (req, res, next) => {
       return res.status(400).json({ error: 'title, category, description are required' });
     }
     const ticket = await createTicket({ user: req.user, title, category, priority, description });
+    // Fire-and-forget — Lambda re-evaluates priority and updates the row in
+    // the background. The 201 response goes back to the client immediately;
+    // the dashboard re-fetch a few seconds later picks up the new priority.
     invokeClassifierAsync({
       ticketId: ticket.ticketId,
       category: ticket.category,

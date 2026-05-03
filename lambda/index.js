@@ -1,5 +1,13 @@
-// nimbusdesk-classifier — auto re-evaluates ticket priority, updates DynamoDB,
-// publishes SNS notification. Invoked async by Express right after ticket creation.
+// nimbusdesk-classifier — re-evaluates ticket priority, persists it to
+// DynamoDB with an Auto-classified activity log entry, and publishes a
+// notification to SNS. Two invocation paths:
+//   1) Express fires it async (InvocationType=Event) immediately after
+//      a ticket is created — the typical production path.
+//   2) API Gateway forwards POST /classify directly so the demo can show
+//      the same logic running over HTTP without going through Express.
+// The (apparently) reserved env name AWS_REGION cannot be set in a Lambda
+// configuration, so we use AWS_REGION_NAME and fall back to the runtime
+// default.
 const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
 const { DynamoDBDocumentClient, UpdateCommand, GetCommand } = require('@aws-sdk/lib-dynamodb');
 const { SNSClient, PublishCommand } = require('@aws-sdk/client-sns');

@@ -1,3 +1,9 @@
+// services/api.js — single axios instance for the backend. The request
+// interceptor pulls the freshest Cognito ID token from Amplify and stamps
+// it as `Authorization: Bearer ...`; the response interceptor signs the
+// user out on a 401 so a stale token never silently breaks the UI.
+// uploadFileToPresigned() deliberately uses a bare axios — we must NOT
+// send the JWT to S3, only the presigned signature in the URL itself.
 import axios from 'axios';
 import { fetchAuthSession, signOut } from 'aws-amplify/auth';
 

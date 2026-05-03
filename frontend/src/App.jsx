@@ -1,3 +1,9 @@
+// App.jsx — top-level router + auth wiring.
+// Public: /, /login.  Authenticated shell at /app/* with role guards:
+//   /app/admin    -> Admin only      /app/analyst -> Analyst only
+//   /app/tickets  -> any authed user (User UI)
+// Unauthenticated visits to /app redirect to /login carrying the original
+// path in router state so post-login we can restore them.
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { configureAmplify } from './config/amplify';
 import { AuthProvider, useAuth } from './context/AuthContext';

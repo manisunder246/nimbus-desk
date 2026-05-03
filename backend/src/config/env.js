@@ -1,3 +1,6 @@
+// config/env.js — loads + validates required env vars at boot.
+// Process exits if any are missing so we fail fast in CI / on EC2 rather
+// than 500'ing on the first request that needs the missing value.
 import 'dotenv/config';
 
 const required = [

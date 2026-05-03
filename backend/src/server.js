@@ -1,3 +1,7 @@
+// server.js — entry point for the NimbusDesk backend.
+// Mounts /health (public) and /api/{auth,tickets,users,attachments} (Cognito-gated).
+// Runs locally for dev (port 3001) and on EC2 in prod behind nginx; same code,
+// the only difference is that on EC2 the IAM instance profile supplies AWS creds.
 import express from 'express';
 import cors from 'cors';
 import env from './config/env.js';

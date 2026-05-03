@@ -1,3 +1,8 @@
+// pages/LoginPage.jsx — Amplify v6 sign-in with the two-step
+// NEW_PASSWORD_REQUIRED challenge baked in. Cognito creates seed users
+// in FORCE_CHANGE_PASSWORD state (see infrastructure/01-cognito.sh); the
+// first login flips into the "Set new password" panel and only then
+// returns an ID token.
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';

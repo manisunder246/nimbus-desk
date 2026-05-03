@@ -1,3 +1,6 @@
+// config/aws.js — singleton AWS SDK v3 clients. Credentials come from the
+// default provider chain (local dev: ~/.aws/credentials; EC2: instance
+// profile). DynamoDBDocumentClient marshals/unmarshals plain JS objects.
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 import { S3Client } from '@aws-sdk/client-s3';

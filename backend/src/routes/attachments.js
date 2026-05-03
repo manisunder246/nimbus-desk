@@ -1,3 +1,7 @@
+// routes/attachments.js — POST /api/attachments/presigned-upload.
+// Returns a short-lived (15-min) S3 PUT URL the browser uses to upload
+// directly to the bucket. The backend never sees the file bytes; we only
+// gate which ticket the caller may attach to and synthesize the S3 key.
 import { Router } from 'express';
 import { authMiddleware } from '../middleware/auth.js';
 import { getTicket } from '../services/ticketService.js';

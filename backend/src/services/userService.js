@@ -1,3 +1,7 @@
+// services/userService.js — workspace user lookup via Cognito ListUsersInGroup.
+// Returns { userId (Cognito sub), email, name, role } shape used by both the
+// admin assignee dropdown and the modal's name resolution. Dedup by userId
+// keeps a user with multiple groups from appearing twice.
 import { ListUsersInGroupCommand } from '@aws-sdk/client-cognito-identity-provider';
 import { cognito } from '../config/aws.js';
 import env from '../config/env.js';

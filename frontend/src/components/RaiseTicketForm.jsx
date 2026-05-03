@@ -1,3 +1,10 @@
+// components/RaiseTicketForm.jsx — three-step ticket creation:
+//   1) POST /api/tickets to create the row
+//   2) (optional) POST /api/attachments/presigned-upload to get an S3 URL
+//      and PUT the file directly there from the browser
+//   3) PATCH /api/tickets/:id/attachment so the row records the s3Key
+// The 5MB file cap is enforced client-side; the server has no body cap
+// because the file never streams through Express.
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createTicket, requestPresignedUpload, uploadFileToPresigned, attachToTicket } from '../services/api';
