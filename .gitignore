@@ -181,3 +181,6 @@ nimbusdesk-deploy.tar.gz
 
 # OS
 Thumbs.db
+
+# PDF builder workspace
+code-pdf/
